@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CuttingCounter : BaseCounter
+public class CuttingCounter : BaseCounter, IHasProgress
 {
-    public event EventHandler<onProgressChangedEventArgs> onProgressChanged;
-
-    public class onProgressChangedEventArgs : EventArgs
-    {
-        public float progressNormalized;
-    }
+    public event EventHandler<IHasProgress.onProgressChangedEventArgs> onProgressChanged;
 
     public event EventHandler OnCut;
 
@@ -36,7 +31,7 @@ public class CuttingCounter : BaseCounter
 
                     onProgressChanged?.Invoke(
                         this,
-                        new onProgressChangedEventArgs
+                        new IHasProgress.onProgressChangedEventArgs
                         {
                             progressNormalized =
                                 (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
@@ -70,7 +65,7 @@ public class CuttingCounter : BaseCounter
 
             onProgressChanged?.Invoke(
                 this,
-                new onProgressChangedEventArgs
+                new IHasProgress.onProgressChangedEventArgs
                 {
                     progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
                 }
